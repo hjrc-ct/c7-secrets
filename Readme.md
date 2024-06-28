@@ -14,9 +14,15 @@ spring.datasource:
 
 ## Pre-requisites
 
+Docker Desktop app is running with this or latest version.
+
+![alt text](image.png)
+
 Run the below command to initialise Docker Swarm.
 
-$ `docker swarm init `
+```
+$ docker swarm init 
+```
 
 
 ## Secret variables
