@@ -1,15 +1,17 @@
 ## Configuration Files
-Two yml configuration files added to the repo.
+Two yml configuration files are present in the Camunda core setup.
 
 `default.yml and production.yml`
 
 
-We will introduce database properties via two defined secret variables.
+We will introduce database properties via defined secret variables.
 
 ```
 spring.datasource:
-  url: ${DB_URL}
-  driver-class-name: ${DB_DRIVER}
+  url: ${SECRET_ML_DB_URL}
+  driver-class-name: ${SECRET_ML_DB_DRIVER}
+  username: ${SECRET_ML_DB_USERNAME}
+  password: ${SECRET_ML_DB_PASSWORD}
 ```
 
 ## Pre-requisites
@@ -26,21 +28,32 @@ $ docker swarm init
 
 
 ## Secret variables
-Let's create two secret variables via Docker.
+Let's create necessary secret variables via Docker.
 
-The parameter '-' indicates that you are going to enter the value and Ctrl + d.
-The second line is actual value for the secret variable.
+The parameter '-' indicates that you are going to enter the value (via keyboard) and press *Ctrl + d*.
 
 
-$ `docker secret create DB_URL -`
+$ `docker secret create SECRET_ML_DB_URL -`
 
-jdbc:h2:mem:camunda;DB_CLOSE_DELAY=1000
+jdbc:h2:mem:camunda-makelabs-in;DB_CLOSE_DELAY=1000
 
 Press Ctrl D to save and complete creating secret
 
-$ `docker secret create DB_DRIVER -`
+$ `docker secret create SECRET_ML_DB_DRIVER -`
 
 org.h2.Driver
+
+Press Ctrl D to save and complete creating secret
+
+$ `docker secret create SECRET_ML_DB_USERNAME -`
+
+sa
+
+Press Ctrl D to save and complete creating secret
+
+$ `docker secret create SECRET_ML_DB_PASSWORD -`
+
+sa
 
 Press Ctrl D to save and complete creating secret
 
@@ -63,7 +76,7 @@ This service has access to the two secret variables.
 
 Name of the docker runtime container is **camunda7-22-runtime**.
 
-$ `docker service  create --name camunda7-22-runtime  --restart-max-attempts 1 --replicas 1 --secret DB_URL --secret DB_DRIVER "camunda7-22"`
+$ `docker service  create --name camunda7-22-runtime  --restart-max-attempts 1 --replicas 1 --secret SECRET_ML_DB_URL --secret SECRET_ML_DB_DRIVER --secret SECRET_ML_DB_USERNAME --secret SECRET_ML_DB_PASSWORD "camunda7-22"`
 
 
 ## Clean up
@@ -71,8 +84,9 @@ If you are running this project as a PoC, you may want to remove the docker serv
 
 This completes the clean up of runtime container.
 
-$ `docker service rm camunda7-22-runtime`
-
+```
+$ docker service rm camunda7-22-runtime
+```
 
 --------------------
 ## Other notes
