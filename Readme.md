@@ -79,4 +79,4 @@ $ `docker service rm camunda7-22-runtime`
 
 Docker secrets are stored in encrypted form.
 
-https://docs.docker.com/engine/swarm/secrets/#simple-example-use-secrets-in-a-windows-service
+https://docs.docker.com/engine/swarm/secrets/
