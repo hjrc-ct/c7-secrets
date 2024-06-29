@@ -1,3 +1,9 @@
+## Introduction
+This repo shows how to secure credentials (Database, api key etc) using Docker Secrets.
+
+The premise is Camunda 7.22 installation using Docker.
+
+
 ## Configuration Files
 Two yml configuration files are present in the Camunda core setup.
 
@@ -20,9 +26,10 @@ Docker Desktop app is running with this or latest version.
 
 ![alt text](image.png)
 
-Run the below command to initialise Docker Swarm.
+Run the below commands to download Camunda base image for 7.22 and also initialise Docker Swarm.
 
 ```
+$ docker pull briarm/camunda:camundaRum_7.22_v1.0
 $ docker swarm init 
 ```
 
